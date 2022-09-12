@@ -7,5 +7,6 @@ Members of team: students of IA-03 group:
 # Vadim Kostyanko. 
 The variant of tasks for the team is 27.
 
+//Test
 [Here you can find README for current lab](https://github.com/VadimKost/Spring_Uni_Labs/blob/master/src/main/java/com/kpi/lab1/README.md)
 
