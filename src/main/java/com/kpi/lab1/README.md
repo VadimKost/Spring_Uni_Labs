@@ -30,7 +30,7 @@
    
 2. Далі до поточного проекту додали контролер `HelloWorldController`, який при посиланні запиту на домашню сторінку застосунку посилає у відповідь файл `index.html`
     - ![FirstCode](readme_img/6.jpg)
-    - ![Homepage](readme_img/7.jpg)
+    - ![Homepage](readme_img/7.png)
 
     
 ###Висновок:
