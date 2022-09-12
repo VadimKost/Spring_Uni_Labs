@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HelloWorldController {
 
     @GetMapping("/")
-    String helloWorld() {
+    String index() {
         return "index.html";
+    }
+
+    @GetMapping("/about")
+    String about() {
+        return "about.html";
     }
 }
