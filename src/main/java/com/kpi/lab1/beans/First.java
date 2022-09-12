@@ -9,10 +9,6 @@ import org.springframework.stereotype.Component;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class First implements CommandLineRunner {
 
-//    public void print() {
-//        System.out.println("First");
-//    }
-
     @Override
     public void run(String... args) throws Exception {
         System.out.println("First");
