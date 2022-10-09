@@ -1,4 +1,4 @@
-package com.kpi.lab1;
+package com.kpi.polyreception;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
