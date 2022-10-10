@@ -41,7 +41,7 @@ public class MonolithController {
         return "register";
     }
 
-    @GetMapping("/")
+    @GetMapping("/search")
     public String searchPage(Model model) {
         model.addAttribute("doctors", doctorService.getAll());
         return "search-result";
