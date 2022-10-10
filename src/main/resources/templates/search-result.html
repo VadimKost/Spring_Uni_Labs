@@ -1,9 +1,25 @@
 <!-- Отображение таблицы расписание для введенного доктора-->
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 
 </head>
 <body>
+<h3>
+    Result for <span th:text="${q}"></span>
+</h3>
+<p th:if="${!doctors.isEmpty()}">
+    <div th:each="doctor: ${doctors}">
+        ---
+    <p th:text="${doctor.firstName}">asd</p>
+    <p th:text="${doctor.lastName}">asd</p>
+    <p th:text="${doctor.speciality}">asd</p>
+    <a>Appointment table</a>
+    </div>
+</p>
+<p th:unless="${!doctors.isEmpty()}">Empty</p>
+
+</p>
 
 </body>
 </html>

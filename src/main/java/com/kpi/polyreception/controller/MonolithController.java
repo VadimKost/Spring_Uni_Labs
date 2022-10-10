@@ -1,9 +1,12 @@
 package com.kpi.polyreception.controller;
 
+import com.kpi.polyreception.entity.SearchQuery;
 import com.kpi.polyreception.service.DoctorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MonolithController {
@@ -14,8 +17,9 @@ public class MonolithController {
     }
 
     @GetMapping("/")
-    public String mainPage(Model model) {
+    public String mainPage(@ModelAttribute SearchQuery query,Model model) {
         model.addAttribute("doctors", doctorService.getAll());
+        model.addAttribute("query", new SearchQuery(""));
         return "index";
     }
     @GetMapping("/admin")
@@ -41,9 +45,10 @@ public class MonolithController {
         return "register";
     }
 
-    @GetMapping("/search")
-    public String searchPage(Model model) {
-        model.addAttribute("doctors", doctorService.getAll());
+    @PostMapping("/search")
+    public String searchPage(@ModelAttribute SearchQuery query, Model model) {
+        model.addAttribute("doctors", doctorService.getDoctorByLastName(query.getQuery()));
+        model.addAttribute("q",query.getQuery());
         return "search-result";
     }
 

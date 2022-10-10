@@ -3,11 +3,34 @@
 <-- Содержит также поле для ввода ФИО доктора и кнопку поиск, после чего перебрасывает на страницу с результатом
 <-- Если пользователь админ, то также должна быть кнопка Admin Panel, где можно добавить/удалить/редактировать часы приема -->
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 
 </head>
 <body>
+<!-- IF people IS not ANONYMOUS -->
+<div th:if="${#authentication.getName() != 'anonymousUser'}">
+    <div>Welcome, <span th:text="${#authentication.getName()}"></span></div>
+    <div sec:authorize="hasRole('ADMIN')">
+        <a href="/admin">To Admin Panel</a>
+    </div>
+    <div sec:authorize="hasRole('USER')">
+        <a href="/account">To Account</a>
+    </div>
 
+
+    </div>
+</div>
+<!-- ELSE -->
+<div th:unless="${#authentication.getName() != 'anonymousUser'}">
+    <a href="/login">Log in</a>
+</div>
+
+<h3>Enter Last Name</h3>
+<form action="#" th:action="@{/search}" th:object="${query}" method="post">
+    <p>Last name: <input type="text" th:field="*{query}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
 </body>
 </html>
