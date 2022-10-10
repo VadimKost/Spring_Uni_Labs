@@ -31,7 +31,7 @@ public class WebSecurityConfig {
         httpSecurity
                 .authorizeRequests()
                 //Доступ только для не зарегистрированных пользователей
-                .antMatchers("/registration").not().fullyAuthenticated()
+                .antMatchers("/register").not().fullyAuthenticated()
                 //Доступ на админ-панель
                 .antMatchers("/admin").hasRole("ADMIN")
                 //Доступ в мой кабинет

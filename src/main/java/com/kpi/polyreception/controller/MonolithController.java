@@ -29,7 +29,7 @@ public class MonolithController {
         return "login";
     }
 
-    @GetMapping("/acc")
+    @GetMapping("/account")
     public String myAccountPage(Model model) {
         model.addAttribute("doctors", doctorService.getAll());
         return "my-account";
