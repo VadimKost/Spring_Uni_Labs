@@ -1,7 +1,10 @@
 package com.kpi.polyreception.security;
 
+import com.kpi.polyreception.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -17,16 +20,19 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-    @Bean
-    public InMemoryUserDetailsManager userDetailsService(){
-        List<UserDetails> userDetailsList = new ArrayList<>();
-        userDetailsList.add(User.withUsername("admin").password(bCryptPasswordEncoder().encode("admin"))
-                .roles("ADMIN").build());
-        userDetailsList.add(User.withUsername("user").password(bCryptPasswordEncoder().encode("user"))
-                .roles("USER").build());
+    @Autowired
+    UserService userService;
 
-        return new InMemoryUserDetailsManager(userDetailsList);
-    }
+//    @Bean
+//    public InMemoryUserDetailsManager userDetailsService(){
+//        List<UserDetails> userDetailsList = new ArrayList<>();
+//        userDetailsList.add(User.withUsername("admin").password(bCryptPasswordEncoder().encode("admin"))
+//                .roles("ADMIN").build());
+//        userDetailsList.add(User.withUsername("user").password(bCryptPasswordEncoder().encode("user"))
+//                .roles("USER").build());
+//
+//        return new InMemoryUserDetailsManager(userDetailsList);
+//    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -54,4 +60,9 @@ public class WebSecurityConfig {
                 .logoutSuccessUrl("/");
         return httpSecurity.build();
     }
+
+//    @Autowired
+//    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
+//    }
 }
