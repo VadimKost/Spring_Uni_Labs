@@ -44,6 +44,11 @@ public class MonolithController {
         model.addAttribute("doctors", doctorService.getAll());
         return "register";
     }
+    @GetMapping("/timetable/{id}")
+    public String timeTablePage(Model model) {
+        model.addAttribute("doctors", doctorService.getAll());
+        return "register";
+    }
 
     @PostMapping("/search")
     public String searchPage(@ModelAttribute SearchQuery query, Model model) {
