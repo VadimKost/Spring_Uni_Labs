@@ -7,6 +7,8 @@ import com.kpi.polyreception.repository.AppointmentTimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AppointmentTimeService {
 
@@ -36,5 +38,10 @@ public class AppointmentTimeService {
         appointmentTimeToUpdate.setTo(appointmentTimeUpdated.getTo());
         appointmentTimeToUpdate.setFrom(appointmentTimeUpdated.getFrom());
         appointmentTimeToUpdate.setDoctorId(appointmentTimeUpdated.getDoctorId());
+        appointmentTimeToUpdate.setDayOfWeek(appointmentTimeUpdated.getDayOfWeek());
+    }
+
+    public List<AppointmentTime> getAppointmentTimes() {
+        return appointmentTimeRepository.getAppointmentTimes();
     }
 }

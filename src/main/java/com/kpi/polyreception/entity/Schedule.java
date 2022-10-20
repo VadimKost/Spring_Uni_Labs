@@ -3,11 +3,13 @@ package com.kpi.polyreception.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 public class Schedule {
+
     private Long id;
-    private Long appointmentTimeId;
-    private Long doctorId;
+    private List<AppointmentTime> appointmentTimes;
 
 }

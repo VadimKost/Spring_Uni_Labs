@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Doctor {
+
     private Long id;
     private String firstName;
     private String lastName;
@@ -15,4 +16,9 @@ public class Doctor {
     private Integer officeNumber;
     private String speciality;
 
+    public Doctor(String firstName, String lastName, String patronymic) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.patronymic = patronymic;
+    }
 }

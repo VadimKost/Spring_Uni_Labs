@@ -5,6 +5,9 @@ import com.kpi.polyreception.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AppointmentService {
 
@@ -15,10 +18,22 @@ public class AppointmentService {
     }
 
     public void submitAppointment(Appointment appointment) {
-        appointmentRepository.getAppointments().put(appointment.getId(), appointment);
+        appointmentRepository.getAppointments().add(appointment);
     }
 
-    public void cancelAppointment(Long id, Appointment appointment) {
-        appointmentRepository.getAppointments().remove(id, appointment);
+    public void cancelAppointment(Appointment appointment) {
+        appointmentRepository.getAppointments().remove(appointment);
+    }
+
+    public List<Appointment> getAppointmentsByPatientId(Long id) {
+        List<Appointment> appointments = new ArrayList<>();
+
+        for (Appointment appointment : appointmentRepository.getAppointments()) {
+            if (appointment.getPatientId().equals(id)) {
+                appointments.add(appointment);
+            }
+        }
+
+        return appointments;
     }
 }

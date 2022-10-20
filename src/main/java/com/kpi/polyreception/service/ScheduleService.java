@@ -1,9 +1,14 @@
 package com.kpi.polyreception.service;
 
+import com.kpi.polyreception.entity.AppointmentTime;
 import com.kpi.polyreception.entity.Doctor;
 import com.kpi.polyreception.entity.Schedule;
 import com.kpi.polyreception.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Service
 public class ScheduleService {
@@ -14,12 +19,13 @@ public class ScheduleService {
         this.scheduleRepository = scheduleRepository;
     }
 
-    public Schedule getSchedule(Doctor doctor) {
-        Schedule scheduleFound = null;
+    public Schedule getScheduleByDoctor(Doctor doctor) {
+        List<AppointmentTime> appointmentTimes = scheduleRepository.getSchedule().getAppointmentTimes();
+        Schedule scheduleFound = new Schedule(new Random().nextLong(), new ArrayList<>());
 
-        for(Schedule schedule : scheduleRepository.getSchedules()) {
-            if (schedule.getDoctorId().equals(doctor.getId())) {
-                scheduleFound = schedule;
+        for (AppointmentTime appointmentTime : appointmentTimes) {
+            if (appointmentTime.getDoctorId().equals(doctor.getId())) {
+                scheduleFound.getAppointmentTimes().add(appointmentTime);
             }
         }
 

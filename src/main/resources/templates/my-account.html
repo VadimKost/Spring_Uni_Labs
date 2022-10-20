@@ -1,11 +1,31 @@
-<!-- Для обычного пользователя на этой странице отображается таблица со всеми его записями и кнока возле каждой записи
-чтобы отменить ее-->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 
 </head>
 <body>
-
+<div th:switch="${appointments}">
+    <h2 th:case="null">You don't have appointments yet.</h2>
+    <div th:case="*">
+        <h2>Your appointments</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Appointment ID</th>
+                <th>User ID</th>
+                <th>Appointment Time ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="appointment : ${appointments}">
+                <td th:text="${appointment.id}"></td>
+                <td th:text="${appointment.patientId}"></td>
+                <td th:text="${appointment.appointmentTimeId}"></td>
+                <td><a th:href="@{appointment-delete/{id}(id=${appointment.id})}">Cancel appointment</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

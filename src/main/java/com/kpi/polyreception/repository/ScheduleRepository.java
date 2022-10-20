@@ -8,9 +8,9 @@ import java.util.List;
 
 @Repository
 public class ScheduleRepository {
-    private List<Schedule> schedules = new ArrayList<>();
+    private Schedule schedule = new Schedule(1L, new AppointmentTimeRepository().getAppointmentTimes());
 
-    public List<Schedule> getSchedules() {
-        return schedules;
+    public Schedule getSchedule() {
+        return schedule;
     }
 }
