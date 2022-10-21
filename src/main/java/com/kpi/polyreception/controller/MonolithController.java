@@ -64,7 +64,8 @@ public class MonolithController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user, Model model) {
         if (!userService.saveUser(user)){
-            return "registration";
+            model.addAttribute("error", "User with given login is already present");
+            return "register";
         }
 
         return "redirect:/";

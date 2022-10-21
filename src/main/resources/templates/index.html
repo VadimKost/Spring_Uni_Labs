@@ -4,29 +4,26 @@
 
 </head>
 <body>
-<!-- IF people IS not ANONYMOUS -->
-<div th:if="${#authentication.getName() != 'anonymousUser'}">
-    <div>Welcome, <span th:text="${#authentication.getName()}"></span></div>
-    <div>
-        <a href="/logout" >Log Out</a>
+    <!-- IF people IS not ANONYMOUS -->
+    <div th:if="${#authentication.getName() != 'anonymousUser'}">
+        <div>Welcome, <span th:text="${#authentication.getName()}"></span></div>
+        <div>
+            <a href="/logout" >Log Out</a>
+        </div>
+        <div sec:authorize="hasRole('ADMIN')">
+            <a href="/admin">To Admin Panel</a>
+        </div>
+        <div sec:authorize="hasRole('USER')">
+            <a href="/account">To Account</a>
+        </div>
     </div>
-    <div sec:authorize="hasRole('ADMIN')">
-        <a href="/admin">To Admin Panel</a>
+    <!-- ELSE -->
+    <div th:unless="${#authentication.getName() != 'anonymousUser'}">
+        <a href="/login">Log In</a>
     </div>
-    <div sec:authorize="hasRole('USER')">
-        <a href="/account">To Account</a>
+    <div th:unless="${#authentication.getName() != 'anonymousUser'}">
+        <a href="/register">Register</a>
     </div>
-    <div>
-        <a href="/logout">Log out</a>
-    </div>
-
-
-    </div>
-</div>
-<!-- ELSE -->
-<div th:unless="${#authentication.getName() != 'anonymousUser'}">
-    <a href="/login">Log In</a>
-</div>
 <!--<h3>Enter doctor's name, surname and patronymic (if exists)</h3>-->
 <!--<form action="#" th:action="@{/search}" th:object="${doctor}" method="get">-->
 <!--    <label for="firstName">First name</label>-->
