@@ -1,6 +1,5 @@
 package com.kpi.polyreception.controller;
 
-import com.kpi.polyreception.entity.Doctor;
 import com.kpi.polyreception.entity.Role;
 import com.kpi.polyreception.entity.SearchQuery;
 import com.kpi.polyreception.entity.User;

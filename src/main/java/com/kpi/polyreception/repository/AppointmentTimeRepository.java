@@ -1,12 +1,10 @@
 package com.kpi.polyreception.repository;
 
 import com.kpi.polyreception.entity.AppointmentTime;
-import com.kpi.polyreception.entity.Doctor;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public class AppointmentTimeRepository {

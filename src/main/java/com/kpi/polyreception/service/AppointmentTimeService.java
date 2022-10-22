@@ -1,10 +1,7 @@
 package com.kpi.polyreception.service;
 
-import com.kpi.polyreception.entity.Appointment;
 import com.kpi.polyreception.entity.AppointmentTime;
-import com.kpi.polyreception.repository.AppointmentRepository;
 import com.kpi.polyreception.repository.AppointmentTimeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

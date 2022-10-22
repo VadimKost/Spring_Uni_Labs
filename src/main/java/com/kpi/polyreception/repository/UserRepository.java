@@ -1,12 +1,9 @@
 package com.kpi.polyreception.repository;
 
-import com.kpi.polyreception.entity.Role;
 import com.kpi.polyreception.entity.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class UserRepository {

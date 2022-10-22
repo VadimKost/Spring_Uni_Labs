@@ -12,16 +12,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
-    @Autowired
-    public void setUserRepository(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
 
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
 
@@ -32,10 +27,6 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
         return user;
-    }
-
-    public List<User> allUsers() {
-        return userRepository.findAll();
     }
 
     public boolean saveUser(User user) {
@@ -49,5 +40,10 @@ public class UserService implements UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
+    }
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository){
+        this.userRepository = userRepository;
     }
 }
