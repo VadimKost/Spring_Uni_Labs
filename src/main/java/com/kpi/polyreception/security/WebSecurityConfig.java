@@ -28,6 +28,11 @@ public class WebSecurityConfig {
     @Bean
     @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+
+        httpSecurity.headers()
+                .xssProtection()
+                .and()
+                .contentSecurityPolicy("script-src 'self'");
         httpSecurity
                 .authorizeRequests()
                 //Доступ только для не зарегистрированных пользователей
@@ -48,4 +53,9 @@ public class WebSecurityConfig {
         return httpSecurity.build();
     }
 
+
+//    @Autowired
+//    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
+//    }
 }

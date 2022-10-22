@@ -82,8 +82,12 @@ public class MonolithController {
 
     @PostMapping("/search")
     public String searchPage(@ModelAttribute SearchQuery query, Model model) {
-        model.addAttribute("doctors", doctorService.getDoctorByLastName(query.getQuery()));
-        model.addAttribute("q",query.getQuery());
+        String qstring = query.getQuery();
+        if(qstring.matches(".*[\\\\%&].*")) {
+            throw new RuntimeException("Invalid character Bitch");
+        }
+        model.addAttribute("doctors", doctorService.getDoctorByLastName(qstring));
+        model.addAttribute("q",qstring);
         return "search-result";
     }
 

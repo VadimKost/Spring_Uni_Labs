@@ -7,15 +7,22 @@
 <h3>
     Result for <span th:text="${q}"></span>
 </h3>
-<p th:if="${!doctors.isEmpty()}">
-    <div th:each="doctor: ${doctors}">
-        ---
-    <p th:text="${doctor.id}">asd</p>
-    <p th:text="${doctor.firstName}">asd</p>
-    <p th:text="${doctor.lastName}">asd</p>
-    <p th:text="${doctor.speciality}">asd</p>
-    <a th:href="@{'/timetable/' + ${doctor.id}}">Appointment table</a>
+
+<div th:switch="${!doctors.isEmpty()}">
+    <h2 th:case="false">No users found!</h2>
+    <div th:case="true">
+        <div th:each="doctor: ${doctors}">
+            ---
+            <p th:text="${doctor.id}">asd</p>
+            <p th:text="${doctor.firstName}">asd</p>
+            <p th:text="${doctor.lastName}">asd</p>
+            <p th:text="${doctor.speciality}">asd</p>
+            <a th:href="@{'/timetable/' + ${doctor.id}}">Appointment table</a>
+        </div>
     </div>
+
+</div>
+
 </p>
 <p th:unless="${!doctors.isEmpty()}">Empty</p>
 
