@@ -16,8 +16,12 @@ import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
+
+    private UserRepository userRepository;
     @Autowired
-    UserRepository userRepository;
+    public void setUserRepository(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
 
