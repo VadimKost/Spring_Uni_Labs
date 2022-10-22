@@ -1,0 +1,15 @@
+<!-- Отображение таблицы расписание для введенного доктора-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+</head>
+<body>
+
+<div th:each="at: ${timetable.appointmentTimes}">
+    ---
+    <p th:text="${at.from}">asd</p>
+    <p th:text="${at.to}">asd</p>
+</div>
+</body>
+</html>
