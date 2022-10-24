@@ -1,9 +1,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 
 </head>
 <body>
+<div th:if="${#authentication.getName() != 'anonymousUser'}">
+    <div th:each="doctor: ${doctors}">
+        ---
+        <p th:text="${doctor.id}">asd</p>
+        <p th:text="${doctor.firstName}">asd</p>
+        <p th:text="${doctor.lastName}">asd</p>
+        <p th:text="${doctor.speciality}">asd</p>
+        <a th:href="@{'/doctor/timetable/edit/' + ${doctor.id}}">Edit</a>
+    </div>
+</div>
+<div th:unless="${#authentication.getName() != 'anonymousUser'}">
+    <a href="/">Home</a>
+</div>
 
 </body>
 </html>

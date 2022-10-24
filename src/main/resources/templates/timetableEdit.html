@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+</head>
+<body>
+<div th:if="${#authentication.getName() != 'anonymousUser'}">
+    Timetable
+    <div th:each="at: ${timetable.appointmentTimes}">
+        ---
+        <p th:text="${at.from}">asd</p>
+        <p th:text="${at.to}">asd</p>
+    </div>
+    Form
+    <form  th:action="@{'/doctor/timetable/edit/' + ${doctor.id}}" th:object="${appointmentTime}" method="post">
+        <p>ID: <input type="text" th:field="*{id}" /></p>
+        <p>doctorId: <input type="text" th:field="*{doctorId}" /></p>
+        <p>from: <input type="text" th:field="*{from}" /></p>
+        <p>to: <input type="text" th:field="*{to}" /></p>
+        <p>dayOfWeek: <input type="text" th:field="*{dayOfWeek}" /></p>
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+</div>
+<div th:unless="${#authentication.getName() != 'anonymousUser'}">
+    <a href="/">Home</a>
+</div>
+
+</body>
+</html>

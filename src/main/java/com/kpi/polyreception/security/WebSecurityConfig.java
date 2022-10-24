@@ -8,9 +8,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -20,7 +26,17 @@ public class WebSecurityConfig {
     UserService userService;
 
     @Bean
-    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public InMemoryUserDetailsManager userDetailsService(){
+        List<UserDetails> userDetailsList = new ArrayList<>();
+        userDetailsList.add(User.withUsername("admin").password(bCryptPasswordEncoder().encode("admin"))
+                .roles("ADMIN").build());
+        userDetailsList.add(User.withUsername("user").password(bCryptPasswordEncoder().encode("user"))
+                .roles("USER").build());
+
+        return new InMemoryUserDetailsManager(userDetailsList);
+    }
+
+    @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
@@ -29,10 +45,10 @@ public class WebSecurityConfig {
     @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.headers()
-                .xssProtection()
-                .and()
-                .contentSecurityPolicy("script-src 'self'");
+//        httpSecurity.headers()
+//                .xssProtection()
+//                .and()
+//                .contentSecurityPolicy("script-src 'self'");
         httpSecurity
                 .authorizeRequests()
                 //Доступ только для не зарегистрированных пользователей

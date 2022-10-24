@@ -1,8 +1,11 @@
 package com.kpi.polyreception.controller;
 
+import com.kpi.polyreception.entity.AppointmentTime;
 import com.kpi.polyreception.entity.Role;
 import com.kpi.polyreception.entity.SearchQuery;
 import com.kpi.polyreception.entity.User;
+import com.kpi.polyreception.repository.AppointmentTimeRepository;
+import com.kpi.polyreception.service.AppointmentTimeService;
 import com.kpi.polyreception.service.DoctorService;
 import com.kpi.polyreception.service.ScheduleService;
 import com.kpi.polyreception.service.UserService;
@@ -19,14 +22,18 @@ import java.util.Collections;
 @Controller
 public class MonolithController {
     private final DoctorService doctorService;
+    private final AppointmentTimeService appointmentTimeService;
     private final ScheduleService scheduleService;
 
     private final UserService userService;
+    private final AppointmentTimeRepository appointmentTimeRepository;
 
-    public MonolithController(DoctorService doctorService, ScheduleService scheduleService, UserService userService) {
+    public MonolithController(DoctorService doctorService, AppointmentTimeService appointmentTimeService, ScheduleService scheduleService, UserService userService, AppointmentTimeRepository appointmentTimeRepository) {
         this.doctorService = doctorService;
+        this.appointmentTimeService = appointmentTimeService;
         this.scheduleService = scheduleService;
         this.userService = userService;
+        this.appointmentTimeRepository = appointmentTimeRepository;
     }
 
     @GetMapping("/")
@@ -91,5 +98,21 @@ public class MonolithController {
         return "search-result";
     }
 
+    @GetMapping("/doctor/timetable/edit/{id}")
+    public String editTimeTable(Model model, @PathVariable("id") Long id,@ModelAttribute AppointmentTime time){
+        model.addAttribute("doctor", doctorService.findDoctorById(id));
+        model.addAttribute("timetable", scheduleService.getScheduleByDoctor(doctorService.findDoctorById(id)));
+        return "timetableEdit";
+    }
+    @PostMapping("/doctor/timetable/edit/{id}")
+    public String addToDoctorTimeTable(Model model, @PathVariable("id") Long id,@ModelAttribute AppointmentTime time){
+        model.addAttribute("doctor", doctorService.findDoctorById(id));
+        model.addAttribute("timetable", scheduleService.getScheduleByDoctor(doctorService.findDoctorById(id)));
+        System.out.println(time);
+        System.out.println(scheduleService.getScheduleByDoctor(doctorService.findDoctorById(id)));
+        appointmentTimeService.createAppointmentTime(time);
+        System.out.println(appointmentTimeRepository.getAppointmentTimes());
+        return "timetableEdit";
+    }
 
 }
