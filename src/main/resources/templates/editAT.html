@@ -5,17 +5,8 @@
 </head>
 <body>
 <div th:if="${#authentication.getName() != 'anonymousUser'}">
-    Timetable
-    <div th:each="at: ${timetable.appointmentTimes}">
-        ---
-        <p th:text="${at.from}">asd</p>
-        <p th:text="${at.to}">asd</p>
-        <a th:href="@{'/admin/doctor/timetable/edit/' + ${doctor.id} +'/'+${at.id}}">Delete</a>
-        <a th:href="@{'/admin/doctor/timetable/editAt/' + ${doctor.id} +'/'+${at.id}}">Edit</a>
-    </div>
-    Form
-    <form  th:action="@{'/admin/doctor/timetable/edit/' + ${doctor.id}}" th:object="${appointmentTime}" method="post">
-        <p>ID: <input type="text" th:field="*{id}" /></p>
+    <form  th:action="@{'/admin/doctor/timetable/editAt/' + ${DoctorID}+'/'+${at.id}}" th:object="${appointmentTime}" th:method="put">
+        <p>ID: <input type="text"  /></p>
         <p>doctorId: <input type="text" th:field="*{doctorId}" /></p>
         <p>from: <input type="text" th:field="*{from}" /></p>
         <p>to: <input type="text" th:field="*{to}" /></p>

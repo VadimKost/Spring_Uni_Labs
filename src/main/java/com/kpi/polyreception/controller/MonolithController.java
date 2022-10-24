@@ -11,10 +11,7 @@ import com.kpi.polyreception.service.ScheduleService;
 import com.kpi.polyreception.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,21 +95,45 @@ public class MonolithController {
         return "search-result";
     }
 
-    @GetMapping("/doctor/timetable/edit/{id}")
+    @GetMapping("admin/doctor/timetable/edit/{id}")
     public String editTimeTable(Model model, @PathVariable("id") Long id,@ModelAttribute AppointmentTime time){
         model.addAttribute("doctor", doctorService.findDoctorById(id));
         model.addAttribute("timetable", scheduleService.getScheduleByDoctor(doctorService.findDoctorById(id)));
         return "timetableEdit";
     }
-    @PostMapping("/doctor/timetable/edit/{id}")
+    @PostMapping("admin/doctor/timetable/edit/{id}")
     public String addToDoctorTimeTable(Model model, @PathVariable("id") Long id,@ModelAttribute AppointmentTime time){
+        System.out.println(time);
+        appointmentTimeService.createAppointmentTime(time);
         model.addAttribute("doctor", doctorService.findDoctorById(id));
         model.addAttribute("timetable", scheduleService.getScheduleByDoctor(doctorService.findDoctorById(id)));
-        System.out.println(time);
-        System.out.println(scheduleService.getScheduleByDoctor(doctorService.findDoctorById(id)));
-        appointmentTimeService.createAppointmentTime(time);
-        System.out.println(appointmentTimeRepository.getAppointmentTimes());
+//        System.out.println(scheduleService.getScheduleByDoctor(doctorService.findDoctorById(id)));
+//        System.out.println(appointmentTimeRepository.getAppointmentTimes());
         return "timetableEdit";
     }
 
+    @GetMapping("admin/doctor/timetable/edit/{id}/{atid}")
+    public String atidDelete(Model model, @PathVariable("id") Long id,@PathVariable("atid") Long atid){
+        appointmentTimeService.deleteAppointmentTime(atid);
+        return "redirect:/admin/doctor/timetable/edit/"+id;
+    }
+
+    @GetMapping("admin/doctor/timetable/editAt/{id}/{atid}")
+    public String atidPut(Model model, @PathVariable("id") Long id,@PathVariable("atid") Long atid,@ModelAttribute AppointmentTime time){
+        AppointmentTime currentAT = appointmentTimeService.findAppointmentTimeById(atid);
+
+        model.addAttribute("at",currentAT);
+        model.addAttribute("DoctorID",id);
+        return "editAT";
+    }
+    @PutMapping("admin/doctor/timetable/editAt/{id}/{atid}")
+    public String atidGet(Model model, @PathVariable("id") Long id,@PathVariable("atid") Long atid,@ModelAttribute AppointmentTime time){
+        AppointmentTime currentAT = time;
+        appointmentTimeService.updateAppointmentTime(atid,currentAT);
+        System.out.println(currentAT);
+        System.out.println(atid);
+        model.addAttribute("at",currentAT);
+        model.addAttribute("did",id);
+        return "editAT";
+    }
 }

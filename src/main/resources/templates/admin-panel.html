@@ -11,7 +11,7 @@
         <p th:text="${doctor.firstName}">asd</p>
         <p th:text="${doctor.lastName}">asd</p>
         <p th:text="${doctor.speciality}">asd</p>
-        <a th:href="@{'/doctor/timetable/edit/' + ${doctor.id}}">Edit</a>
+        <a th:href="@{'/admin/doctor/timetable/edit/' + ${doctor.id}}">Edit</a>
     </div>
 </div>
 <div th:unless="${#authentication.getName() != 'anonymousUser'}">

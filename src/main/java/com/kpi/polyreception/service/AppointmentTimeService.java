@@ -19,8 +19,18 @@ public class AppointmentTimeService {
         appointmentTimeRepository.getAppointmentTimes().add(appointmentTime);
     }
 
-    public void deleteAppointmentTime(AppointmentTime appointmentTime) {
-        appointmentTimeRepository.getAppointmentTimes().remove(appointmentTime);
+    public void deleteAppointmentTime(Long id) {
+//        List<AppointmentTime> list = appointmentTimeRepository.getAppointmentTimes().stream().filter(item -> item.getId() != appointmentTime).toList();
+        AppointmentTime appointmentTime = null;
+        for (AppointmentTime at : appointmentTimeRepository.getAppointmentTimes()) {
+            if (at.getId().equals(id)) {
+                appointmentTime = at;
+            }
+        }
+
+        if (appointmentTime != null) {
+            appointmentTimeRepository.getAppointmentTimes().remove(appointmentTime);
+        }
     }
 
     public void updateAppointmentTime(Long id, AppointmentTime appointmentTimeUpdated) {
@@ -40,5 +50,16 @@ public class AppointmentTimeService {
 
     public List<AppointmentTime> getAppointmentTimes() {
         return appointmentTimeRepository.getAppointmentTimes();
+    }
+    public AppointmentTime findAppointmentTimeById(Long id) {
+        AppointmentTime appointmentTime = null;
+
+        for (AppointmentTime at : appointmentTimeRepository.getAppointmentTimes()) {
+            if (at.getId().equals(id)) {
+                appointmentTime = at;
+            }
+        }
+
+        return appointmentTime;
     }
 }
