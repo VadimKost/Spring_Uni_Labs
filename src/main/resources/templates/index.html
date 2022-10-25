@@ -24,10 +24,10 @@
     <div th:unless="${#authentication.getName() != 'anonymousUser'}">
         <a href="/register">Register</a>
     </div>
-<h3>Enter doctor's name, surname and patronymic (if exists)</h3>
+<h3>Enter doctor's surname: </h3>
     <form action="#" th:action="@{/search}" th:object="${query}" method="post">
         <p>Last name: <input type="text" th:field="*{query}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p><input type="submit" value="Find schedule" /> <input type="reset" value="Reset" /></p>
     </form>
 </body>
 </html>

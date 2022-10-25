@@ -9,23 +9,30 @@
 </h3>
 
 <div th:switch="${!doctors.isEmpty()}">
-    <h2 th:case="false">No users found!</h2>
+    <h2 th:case="false">We couldn't find doctor with given surname :(</h2>
     <div th:case="true">
-        <div th:each="doctor: ${doctors}">
-            ---
-            <p th:text="${doctor.id}">asd</p>
-            <p th:text="${doctor.firstName}">asd</p>
-            <p th:text="${doctor.lastName}">asd</p>
-            <p th:text="${doctor.speciality}">asd</p>
-            <a th:href="@{'/timetable/' + ${doctor.id}}">Appointment table</a>
-        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Speciality</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="doctor : ${doctors}">
+                <td th:text="${doctor.id}"></td>
+                <td th:text="${doctor.firstName}"></td>
+                <td th:text="${doctor.lastName}"></td>
+                <td th:text="${doctor.speciality}"></td>
+                <td><a th:href="@{'/timetable/' + ${doctor.id}}">Schedule</a></td>
+            </tr>
+            </tbody>
+        </table>
+
     </div>
 </div>
-
-</p>
-<p th:unless="${!doctors.isEmpty()}">Empty</p>
-
-</p>
 
 </body>
 </html>

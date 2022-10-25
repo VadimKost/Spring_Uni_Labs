@@ -5,10 +5,28 @@
 </head>
 <body>
 
-<div th:each="at: ${timetable.appointmentTimes}">
-    ---
-    <p th:text="${at.from}">asd</p>
-    <p th:text="${at.to}">asd</p>
+<div th:switch="${!timetable.appointmentTimes.isEmpty()}">
+    <h2 th:case="false">This doctor doesn't have schedule yet.</h2>
+    <div th:case="true">
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Day of Week</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="at: ${timetable.appointmentTimes}">
+            <td th:text="${at.id}"></td>
+            <td th:text="${at.from}"></td>
+            <td th:text="${at.to}"></td>
+            <td th:text="${at.dayOfWeek}"></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
 </div>
 </body>
 </html>
