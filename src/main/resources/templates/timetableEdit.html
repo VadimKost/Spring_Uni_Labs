@@ -6,21 +6,49 @@
 <body>
 <div th:if="${#authentication.getName() != 'anonymousUser'}">
     Timetable
-    <div th:each="at: ${timetable.appointmentTimes}">
-        ---
-        <p th:text="${at.from}">asd</p>
-        <p th:text="${at.to}">asd</p>
-        <a th:href="@{'/admin/doctor/timetable/edit/' + ${doctor.id} +'/'+${at.id}}">Delete</a>
-        <a th:href="@{'/admin/doctor/timetable/editAt/' + ${doctor.id} +'/'+${at.id}}">Edit</a>
+    <div th:switch="${!timetable.appointmentTimes.isEmpty()}">
+        <h2 th:case="false">This doctor doesn't have schedule yet.</h2>
+        <div th:case="true">
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Day of Week</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="at: ${timetable.appointmentTimes}">
+                    <td th:text="${at.id}"></td>
+                    <td th:text="${at.from}"></td>
+                    <td th:text="${at.to}"></td>
+                    <td th:text="${at.dayOfWeek}"></td>
+                    <td><a th:href="@{'/admin/doctor/timetable/edit/' + ${doctor.id} +'/'+${at.id}}">Delete</a></td>
+                    <td><a th:href="@{'/admin/doctor/timetable/editAt/' + ${doctor.id} +'/'+${at.id}}">Edit</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    Form
+<!--    <div th:each="at: ${timetable.appointmentTimes}">-->
+<!--        -&#45;&#45;-->
+<!--        <p th:text="${at.from}">asd</p>-->
+<!--        <p th:text="${at.to}">asd</p>-->
+<!--        <a th:href="@{'/admin/doctor/timetable/edit/' + ${doctor.id} +'/'+${at.id}}">Delete</a>-->
+<!--        <a th:href="@{'/admin/doctor/timetable/editAt/' + ${doctor.id} +'/'+${at.id}}">Edit</a>-->
+<!--    </div> </br>-->
+
+
+
+    Add new appointment time:
     <form  th:action="@{'/admin/doctor/timetable/edit/' + ${doctor.id}}" th:object="${appointmentTime}" method="post">
         <p>ID: <input type="text" th:field="*{id}" /></p>
         <p>doctorId: <input type="text" th:field="*{doctorId}" /></p>
         <p>from: <input type="text" th:field="*{from}" /></p>
         <p>to: <input type="text" th:field="*{to}" /></p>
         <p>dayOfWeek: <input type="text" th:field="*{dayOfWeek}" /></p>
-        <p><input type="submit" value="Submit" /></p>
+        <p><input type="submit" value="Add new" /></p>
     </form>
 </div>
 <div th:unless="${#authentication.getName() != 'anonymousUser'}">
