@@ -134,6 +134,6 @@ public class MonolithController {
         System.out.println(atid);
         model.addAttribute("at",currentAT);
         model.addAttribute("did",id);
-        return "editAT";
+        return "redirect:/admin/doctor/timetable/edit/"+id;
     }
 }

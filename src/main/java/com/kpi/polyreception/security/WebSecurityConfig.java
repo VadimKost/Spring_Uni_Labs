@@ -45,10 +45,10 @@ public class WebSecurityConfig {
     @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
-//        httpSecurity.headers()
-//                .xssProtection()
-//                .and()
-//                .contentSecurityPolicy("script-src 'self'");
+        httpSecurity.headers()
+                .xssProtection()
+                .and()
+                .contentSecurityPolicy("script-src 'self'");
         httpSecurity
                 .authorizeRequests()
                 //Доступ только для не зарегистрированных пользователей
