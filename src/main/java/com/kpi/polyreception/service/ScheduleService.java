@@ -20,6 +20,9 @@ public class ScheduleService {
     }
 
     public Schedule getScheduleByDoctor(Doctor doctor) {
+        if(doctor == null)
+            return null;
+
         List<AppointmentTime> appointmentTimes = scheduleRepository.getSchedule().getAppointmentTimes();
         Schedule scheduleFound = new Schedule(new Random().nextLong(), new ArrayList<>());
 

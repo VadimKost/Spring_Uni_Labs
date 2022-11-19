@@ -37,6 +37,7 @@ public class DoctorService {
                 result.add(doctor);
             }
         }
-        return result;
+
+        return result.size() > 0 ? result : null;
     }
 }
