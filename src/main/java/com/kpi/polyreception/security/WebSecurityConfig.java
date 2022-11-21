@@ -25,6 +25,7 @@ public class WebSecurityConfig {
     @Autowired
     UserService userService;
 
+
     @Bean
     public InMemoryUserDetailsManager userDetailsService(){
         List<UserDetails> userDetailsList = new ArrayList<>();
@@ -44,6 +45,7 @@ public class WebSecurityConfig {
     @Bean
     @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.cors().and().csrf().disable();
 
         httpSecurity.headers()
                 .xssProtection()

@@ -7,6 +7,9 @@ import com.kpi.polyreception.service.AppointmentTimeService;
 import com.kpi.polyreception.service.DoctorService;
 import com.kpi.polyreception.service.ScheduleService;
 import com.kpi.polyreception.service.UserService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,26 +75,22 @@ public class RestController {
                 HttpStatus.OK);
     }
 
+
     @GetMapping("admin/{doctor}/timetable")
-    ResponseEntity<?> getTimeTableByDoctor(@PathVariable("doctor") String name){
-        if(doctorService.getDoctorByLastName(name) == null)
+    ResponseEntity<?> getTimeTableByDoctor(@PathVariable("doctor") Long id){
+        if(doctorService.findDoctorById(id) == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        if(scheduleService.getScheduleByDoctor(doctorService.getDoctorByLastName(name).get(0)) == null)
+        if(scheduleService.getScheduleByDoctor(doctorService.findDoctorById(id)) == null)
             return new ResponseEntity<>("Doctor doesn't have any timetable yet", HttpStatus.OK);
         return new ResponseEntity<>(scheduleService
-                .getScheduleByDoctor(doctorService.getDoctorByLastName(name).get(0)),
+                .getScheduleByDoctor(doctorService.findDoctorById(id)),
                 HttpStatus.OK);
     }
 
-    @PostMapping("admin/{doctor}/timetable/add")
-    ResponseEntity<?> addTimeTableToDoctor(@PathVariable("doctor") String name, AppointmentTime time){
+    @PostMapping("admin/timetable/add")
+    ResponseEntity<?> addTimeTableToDoctor(AppointmentTime time){
         appointmentTimeService.createAppointmentTime(time);
-
-        HttpHeaders headers = new HttpHeaders();
-        String redirect = "/admin/" + name + "/timetable";
-        headers.add("Location", redirect);
-
-        return new ResponseEntity<String>(headers, HttpStatus.FOUND);
+        return new ResponseEntity<String>("Good", HttpStatus.FOUND);
     }
 
     @PutMapping("admin/{doctor}/timetable/edit")
@@ -109,12 +108,6 @@ public class RestController {
     @DeleteMapping("admin/timetable/delete/{id}")
     public String deleteAppointment(@PathVariable("id") Long id, HttpServletResponse resp){
         appointmentTimeService.deleteAppointmentTime(id);
-
-        if(appointmentTimeService.findAppointmentTimeById(id) != null) {
-            resp.setStatus(400);
-            return null;
-        }
-
         resp.setStatus(200);
         return "redirect:/admin/timetable";
     }

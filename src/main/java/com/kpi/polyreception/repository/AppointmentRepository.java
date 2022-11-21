@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AppointmentRepository {
+public class AppointmentRepository{
     private List<Appointment> appointments = new ArrayList<>() {{
         add(new Appointment(1L, 1L, 1L));
         add(new Appointment(2L, 1L, 3L));
