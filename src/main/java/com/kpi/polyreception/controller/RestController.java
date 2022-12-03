@@ -49,12 +49,12 @@ public class RestController {
 
     @ResponseStatus(HttpStatus.MOVED_PERMANENTLY)
     @GetMapping("/")
-    public String mainPage(@ModelAttribute SearchQuery query) {
+    public String mainPage() {
         return "redirect:/admin";
     }
 
     @GetMapping("/admin")
-    ResponseEntity<?> adminPage(Principal user) {
+    ResponseEntity<?> adminPage() {
 
         //TODO Подхватывать авторизированного юзера и проверять его права
 //        if(user == null)
